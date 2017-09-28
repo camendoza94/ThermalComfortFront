@@ -9,39 +9,39 @@ class Ping extends Component {
   }
   ping() {
     axios.get(`${API_URL}/floors`)
-      .then(response => this.setState({ message: response.data[0].name }))
-      .catch(error => this.setState({ message: error.message }));
+    .then(response => this.setState({ message: response.data[0].name }))
+    .catch(error => this.setState({ message: error.message }));
   }
   securedPing() {
-    const { getAccessToken } = this.props.auth;
-    const headers = { Authorization: `Bearer ${getAccessToken()}`};
+    const { getIdToken } = this.props.auth;
+    const headers = { Authorization: `Bearer ${getIdToken()}`};
     console.log(headers);
-    axios.get(`${API_URL}/floors`, { headers: headers })
-      .then(response => this.setState({ message: response.data.message }))
-      .catch(error => this.setState({ message: error.message }));
+    axios.get(`${API_URL}/floors`, { credentials: true, headers: headers })
+    .then(response => this.setState({ message: response.data.message }))
+    .catch(error => this.setState({ message: error.message }));
   }
   render() {
     const { isAuthenticated } = this.props.auth;
     const { message } = this.state;
     return (
       <div className="container">
-        <h1>Make a Call to the Server</h1>
-        {
-          !isAuthenticated() &&
-            <p>Log in to call a private (secured) server endpoint.</p>
-        }
-        <Button bsStyle="primary" onClick={this.ping.bind(this)}>Ping</Button>
-        {' '}
-        {
-          isAuthenticated() && (
-              <Button bsStyle="primary" onClick={this.securedPing.bind(this)}>
-                Call Private
-              </Button>
-            )
-        }
-        <h2>{message}</h2>
+      <h1>Make a Call to the Server</h1>
+      {
+        !isAuthenticated() &&
+        <p>Log in to call a private (secured) server endpoint.</p>
+      }
+      <Button bsStyle="primary" onClick={this.ping.bind(this)}>Ping</Button>
+      {' '}
+      {
+        isAuthenticated() && (
+          <Button bsStyle="primary" onClick={this.securedPing.bind(this)}>
+          Call Private
+          </Button>
+          )
+      }
+      <h2>{message}</h2>
       </div>
-    );
+      );
   }
 }
 
