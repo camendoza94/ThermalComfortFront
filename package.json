@@ -25,7 +25,7 @@
     "react-router-dom": "^4.1.1"
   },
   "scripts": {
-    "start": "npm-run-all --parallel server:start client:start",
+    "start": "npm-run-all --parallel client:start",
     "client:start": "react-scripts start",
     "server:start": "node server.js",
     "build": "react-scripts build",

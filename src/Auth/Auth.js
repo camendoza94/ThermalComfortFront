@@ -4,7 +4,7 @@ import history from '../history';
 
 export default class Auth {
   userProfile;
-  requestedScopes = 'openid profile groups permissions roles read:messages write:messages';
+  requestedScopes = 'openid profile';
 
   auth0 = new auth0.WebAuth({
     domain: AUTH_CONFIG.domain,
@@ -52,7 +52,6 @@ export default class Auth {
     // use the scopes as requested. If no scopes were requested,
     // set it to nothing
     const scopes = authResult.scope || this.requestedScopes || '';
-    console.log(authResult);
 
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
@@ -108,7 +107,6 @@ export default class Auth {
 
   userHasScopes(scopes) {
     const grantedScopes = JSON.parse(localStorage.getItem('scopes')).split(' ');
-    console.log(grantedScopes);
     return scopes.every(scope => grantedScopes.includes(scope));
   }
 }

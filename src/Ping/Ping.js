@@ -15,7 +15,6 @@ class Ping extends Component {
   securedPing() {
     const { getIdToken } = this.props.auth;
     const headers = { Authorization: `Bearer ${getIdToken()}`};
-    console.log(headers);
     axios.get(`${API_URL}/floors`, { credentials: true, headers: headers })
     .then(response => this.setState({ message: response.data.message }))
     .catch(error => this.setState({ message: error.message }));

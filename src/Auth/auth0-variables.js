@@ -1,6 +1,6 @@
 export const AUTH_CONFIG = {
-  domain: 'arquisoft20172.auth0.com',
-  clientId: 'fynjUzmxrw2sGQCK5LHiRBOOKh7FMbIu',
+  domain: 'arquisoft20172-mendoza.auth0.com',
+  clientId: '3_oUY2nDQVT3cMiaut_XDPX5KkpuZjRO',
   callbackUrl: 'http://localhost:3000/callback',
-  apiUrl: 'uniandes.edu.co/thermalcomfort'
+  apiUrl: 'mendoza.com/thermalcomfort'
 }
