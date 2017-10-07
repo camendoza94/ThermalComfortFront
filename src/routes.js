@@ -3,10 +3,10 @@ import { Redirect, Route, Router } from 'react-router-dom';
 import App from './App';
 import Home from './Home/Home';
 import Profile from './Profile/Profile';
-import Ping from './Ping/Ping';
-import Admin from './Admin/Admin';
 import Callback from './Callback/Callback';
 import Auth from './Auth/Auth';
+import Floors from './Floors/Floors';
+import Rooms from './Rooms/Rooms';
 import history from './history';
 
 const auth = new Auth();
@@ -30,18 +30,18 @@ export const makeMainRoutes = () => {
               <Profile auth={auth} {...props} />
             )
           )} />
-          <Route path="/ping" render={(props) => (
+          <Route path="/floors" render={(props) => (
+            !auth.isAuthenticated() || !auth.userHasRole(['admin']) ? (
+              <Redirect to="/home"/>
+            ) : (
+              <Floors auth={auth} {...props} />
+            )
+          )} />
+          <Route path="/rooms" render={(props) => (
             !auth.isAuthenticated() ? (
               <Redirect to="/home"/>
             ) : (
-              <Ping auth={auth} {...props} />
-            )
-          )} />
-          <Route path="/admin" render={(props) => (
-            !auth.isAuthenticated() || !auth.userHasScopes(['write:messages']) ? (
-              <Redirect to="/home"/>
-            ) : (
-              <Admin auth={auth} {...props} />
+              <Rooms auth={auth} {...props} />
             )
           )} />
           <Route path="/callback" render={(props) => {

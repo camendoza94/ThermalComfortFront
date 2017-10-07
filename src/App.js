@@ -16,7 +16,7 @@ class App extends Component {
   }
 
   render() {
-    const { isAuthenticated, userHasScopes } = this.props.auth;
+    const { isAuthenticated, userHasRole } = this.props.auth;
 
     return (
       <div>
@@ -55,24 +55,24 @@ class App extends Component {
                 )
             }
             {
-              isAuthenticated() && (
+              isAuthenticated() && userHasRole(['admin']) && (
                   <Button
                     bsStyle="primary"
                     className="btn-margin"
-                    onClick={this.goTo.bind(this, 'ping')}
+                    onClick={this.goTo.bind(this, 'floors')}
                   >
-                    Ping
+                    Floors
                   </Button>
                 )
             }
             {
-              isAuthenticated() &&  userHasScopes(['write:messages']) && (
+              isAuthenticated() && (
                   <Button
                     bsStyle="primary"
                     className="btn-margin"
-                    onClick={this.goTo.bind(this, 'admin')}
+                    onClick={this.goTo.bind(this, 'rooms')}
                   >
-                    Admin
+                    Historical data
                   </Button>
                 )
             }
